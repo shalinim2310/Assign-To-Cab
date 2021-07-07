@@ -28,6 +28,7 @@ import com.example.demo.entity.DriverInfo;
 import com.example.demo.entity.EmployeeInfo;
 import com.example.demo.entity.Source;
 import com.example.demo.entity.TripCabInfo;
+import com.example.demo.status.CustomStatus;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -247,10 +248,26 @@ public class AssigningController {
 	
 	// To update and save in the Trip cab info , update in Booking Request table
 	@PostMapping(path="save/tripInfo")
-	public ResponseEntity<AssigningBO> saveTrip(@RequestBody AssigningBO info) {
+	public ResponseEntity<?> saveTrip(@RequestBody AssigningBO info) {
+		String result;
+       boolean cancelledFlag = this.assigningBL.checkEmpStatusBeforeAssignment(info);
+			
+			//code to check if status is not cancelled
+			//System.out.println(cancelledFlag);
+			if(cancelledFlag) {
+				
+				result = "Someone has cancelled their ride, please refresh the page and try again";
+				return ResponseEntity.status(CustomStatus.INVALID).body(result);
+			}
 		
-		AssigningBO save=this.assigningBL.saveTrip(info);
-		return ResponseEntity.status(HttpStatus.OK).body(save);
+				
+		   AssigningBO save=this.assigningBL.saveTrip(info);
+				
+			return ResponseEntity.status(CustomStatus.VALID).body(save);
+	//	return ResponseEntity.status(HttpStatus.OK).body(null);
+		 
+		
+		
 		
 	}
 
@@ -330,11 +347,11 @@ public class AssigningController {
     // Save Trip Details
 	@PostMapping(path="save/tripCabInfo")
 	public TripCabInfo addBookingRequest(@RequestBody TripCabInfo info) {
-			
+		
 		return this.assigningBL.save(info);
 	}
 	
-
+  
 
 
     

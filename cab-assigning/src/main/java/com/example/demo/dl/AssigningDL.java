@@ -336,8 +336,27 @@ public class AssigningDL {
 	}
 
 
-
-	//----------------------------------------Assign To Cab pop up ends here---------------------------------//
+	//code to check if status is not cancelled
+	public boolean checkEmpStatusBeforeAssignment(List<BookingRequest> empList) {
+		boolean result = false;
+		
+		for(BookingRequest emp : empList) {
+			
+		
+			Integer empId=emp.getEmployeeId();
+			BookingRequest req =reqRepo.findByEmployeeIdAndStatus(empId);
+			
+			// If more than one admins are assigning at a time, so checking the status whether it is Assigned already
+			if(req.getStatus().equalsIgnoreCase("Cancelled")||req.getStatus().equalsIgnoreCase("Assigned")) {
+				result=true;
+			}
+			
+		}
+		
+		return result;
+				
+	}
 	
+	//----------------------------------------Assign To Cab pop up ends here---------------------------------//
 	
 }

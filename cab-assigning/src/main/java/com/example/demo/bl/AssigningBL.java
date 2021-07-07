@@ -180,8 +180,13 @@ public class AssigningBL {
 
 	// To update and save in the Trip cab info , update in Booking Request table
 	public AssigningBO saveTrip(AssigningBO info) {
-		
+		//code to only pass non-cancelled requests to next line
 		return this.assigningDL.storeTrip(info);
+	}
+	
+	//code to check if status is not cancelled
+	public boolean checkEmpStatusBeforeAssignment(AssigningBO empList) {
+		return this.assigningDL.checkEmpStatusBeforeAssignment(empList.getEmpList());
 	}
 
 

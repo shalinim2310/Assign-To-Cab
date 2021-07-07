@@ -12,8 +12,11 @@ public interface BookingRequestRepository extends MongoRepository<BookingRequest
 
 	BookingRequest findByBookingId(Integer integer);
 
-	@Query("{employeeId: ?0}, {status: Booked}")
+	@Query("{employeeId: ?0}, {status: booked}")
 	BookingRequest findByEmployeeId(Integer employeeId);
+	
+	@Query("{employeeId: ?0}")
+	BookingRequest findByEmployeeIdAndStatus(Integer employeeId);
 
 	LocalDate findByCreatedDate();
 

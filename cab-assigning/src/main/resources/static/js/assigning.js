@@ -1556,12 +1556,20 @@ function todayBookingResponse(){
 			
 			//alert(xhrAssign.readyState);
 			//alert(xhrAssign.status);
-			if(xhrAssign.readyState == 4 && xhrAssign.status == 200)
+			if(xhrAssign.readyState == 4 && xhrAssign.status == 302)
 		    {
 	           var response = xhrAssign.responseText;
 	          
 	           alert("Trip added successfully");
 	          deleteRow();
+	        selected=0;
+		    }
+		    if(xhrAssign.readyState == 4 && xhrAssign.status == 303)
+		    {
+	           var response = xhrAssign.responseText;
+	          
+	           alert(response);
+	         // deleteRow();
 	        selected=0;
 		    }
 		    selected=0;

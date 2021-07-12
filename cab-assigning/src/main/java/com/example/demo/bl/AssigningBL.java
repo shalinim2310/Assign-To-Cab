@@ -184,7 +184,7 @@ public class AssigningBL {
 		return this.assigningDL.storeTrip(info);
 	}
 	
-	//code to check if status is not cancelled
+	//code to check if status is not cancelled or Assigned already
 	public boolean checkEmpStatusBeforeAssignment(AssigningBO empList) {
 		return this.assigningDL.checkEmpStatusBeforeAssignment(empList.getEmpList());
 	}

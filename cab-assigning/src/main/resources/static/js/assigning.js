@@ -1345,7 +1345,7 @@ function todayBookingResponse(){
 							}
 						}
 						else {
-							alert("AM");
+						//	alert("AM");
 							// alert(AddDays(date,1));
 						//	var date = addDays(new Date(),1);
 						
@@ -1456,7 +1456,7 @@ function todayBookingResponse(){
 					if(defDest!=null && defTimeSlot!=null){
 					
 					  if(defDest!=selectedDest || defTimeSlot!=selectedTimeSlot){
-					   alert("Not valid");
+					   alert("Not valid - select same destination and time slot");
 					   document.getElementById("assign-to-cab-button").setAttribute("data-target","none");
 					   return false;
 					   }
@@ -1478,7 +1478,7 @@ function todayBookingResponse(){
 				else{
 					continue;
 				}
-				alert("Selected "+selected);
+				//alert("Selected "+selected);
 						
 			}
 			if(plans.length==0){
@@ -1606,6 +1606,7 @@ function todayBookingResponse(){
 				}
          
           }
+          
           
  //----------------------------------------------------------------------------------------
    // Function to assign date of travel

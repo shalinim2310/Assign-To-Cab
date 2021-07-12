@@ -259,7 +259,7 @@ public class AssigningDL {
                    
                 }
                
-                if(count == tripCabAssigned.size()) {
+                if(count == tripCabAssigned.size() && totalSeats >= selected) {
                     availableCabs.add(new AssigningBO(eachCab.getCabNumber(),driver.getDriverName(),driver.getDriverNumber(),destination,time,eachCab.getTotalSeats(),eachCab.getTotalSeats(),0,null,null,null));
                 }
                

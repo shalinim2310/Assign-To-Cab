@@ -253,10 +253,10 @@ public class AssigningController {
        boolean cancelledFlag = this.assigningBL.checkEmpStatusBeforeAssignment(info);
 			
 			//code to check if status is not cancelled
-			//System.out.println(cancelledFlag);
+		
 			if(cancelledFlag) {
 				
-				result = "Someone has cancelled their ride, please refresh the page and try again";
+				result = "Someone has cancelled their ride or a trip has been assigned already, please refresh the page and try again";
 				return ResponseEntity.status(CustomStatus.INVALID).body(result);
 			}
 		

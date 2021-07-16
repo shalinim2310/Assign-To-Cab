@@ -343,7 +343,7 @@ public class AssigningDL {
 		for(BookingRequest emp : empList) {
 			
 		
-			Integer empId=emp.getEmployeeId();
+			String empId=emp.getEmployeeId();
 			BookingRequest req =reqRepo.findByEmployeeIdAndStatus(empId);
 			
 			// If more than one admins are assigning at a time, so checking the status whether it is Assigned already

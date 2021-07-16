@@ -18,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 public class EmployeeInfo {
 
 	@Id
-	Integer employeeId;
+	String employeeId;
 	String employeeName;
 	String employeeMail;
 	Integer phoneNumber;

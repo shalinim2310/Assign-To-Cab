@@ -103,53 +103,53 @@ public class CabAssigningApplication {
 //				this.cabRepo.save(cab1);
 				
 				
-				Source source1=new Source(101,"Alpha City");
-				repo1.save(source1);
-				
-				Source source2=new Source(102,"Bayline Info City");
-				repo1.save(source2);
-				
-				DropPoint point1=new DropPoint("Shollinganallur");
-				DropPoint point2=new DropPoint("Medavakkam");
-				DropPoint point3=new DropPoint("Camp Road");
-				DropPoint point4=new DropPoint("Thoraipakkam");
-				DropPoint point5=new DropPoint("Tharamani");
-				DropPoint point6=new DropPoint("Madipakkam");
-				List<DropPoint> list1=new ArrayList<>();
-				List<DropPoint> list2=new ArrayList<>();
-				list1.add(point1);
-				list1.add(point2);
-				list1.add(point3);
-				list2.add(point4);
-				list2.add(point5);
-				list2.add(point6);
-				
-				TimeSlot slot1=new TimeSlot(LocalTime.of(21, 30,00));
-				TimeSlot slot2=new TimeSlot(LocalTime.of(20, 30,00));
-				TimeSlot slot3=new TimeSlot(LocalTime.of(00, 00,00));
-				TimeSlot slot4=new TimeSlot(LocalTime.of(20, 00,00));
-				TimeSlot slot5=new TimeSlot(LocalTime.of(22, 00,00));
-				TimeSlot slot6=new TimeSlot(LocalTime.of(22, 30,00));
-				TimeSlot slot7=new TimeSlot(LocalTime.of(01, 30,00));
-				TimeSlot slot8=new TimeSlot(LocalTime.of(01, 00,00));
-				List<TimeSlot> list3=new ArrayList<>();
-				list3.add(slot1);
-				list3.add(slot2);
-				list3.add(slot3);
-				list3.add(slot4);
-				list3.add(slot5);
-				list3.add(slot6);
-				list3.add(slot7);
-				
-				Destination dest1=new Destination(12122,"Tambaram",list1,list3);
-				repo2.save(dest1); 
-				
-				Destination dest2=new Destination(12123,"Velacherry",list2,list3);
-				repo2.save(dest2); 
-				
-				
-				
-				
+//				Source source1=new Source(101,"Alpha City");
+//				repo1.save(source1);
+//				
+//				Source source2=new Source(102,"Bayline Info City");
+//				repo1.save(source2);
+//				
+//				DropPoint point1=new DropPoint("Shollinganallur");
+//				DropPoint point2=new DropPoint("Medavakkam");
+//				DropPoint point3=new DropPoint("Camp Road");
+//				DropPoint point4=new DropPoint("Thoraipakkam");
+//				DropPoint point5=new DropPoint("Tharamani");
+//				DropPoint point6=new DropPoint("Madipakkam");
+//				List<DropPoint> list1=new ArrayList<>();
+//				List<DropPoint> list2=new ArrayList<>();
+//				list1.add(point1);
+//				list1.add(point2);
+//				list1.add(point3);
+//				list2.add(point4);
+//				list2.add(point5);
+//				list2.add(point6);
+//				
+//				TimeSlot slot1=new TimeSlot(LocalTime.of(21, 30,00));
+//				TimeSlot slot2=new TimeSlot(LocalTime.of(20, 30,00));
+//				TimeSlot slot3=new TimeSlot(LocalTime.of(00, 00,00));
+//				TimeSlot slot4=new TimeSlot(LocalTime.of(20, 00,00));
+//				TimeSlot slot5=new TimeSlot(LocalTime.of(22, 00,00));
+//				TimeSlot slot6=new TimeSlot(LocalTime.of(22, 30,00));
+//				TimeSlot slot7=new TimeSlot(LocalTime.of(01, 30,00));
+//				TimeSlot slot8=new TimeSlot(LocalTime.of(01, 00,00));
+//				List<TimeSlot> list3=new ArrayList<>();
+//				list3.add(slot1);
+//				list3.add(slot2);
+//				list3.add(slot3);
+//				list3.add(slot4);
+//				list3.add(slot5);
+//				list3.add(slot6);
+//				list3.add(slot7);
+//				
+//				Destination dest1=new Destination(12122,"Tambaram",list1,list3);
+//				repo2.save(dest1); 
+//				
+//				Destination dest2=new Destination(12123,"Velacherry",list2,list3);
+//				repo2.save(dest2); 
+//				
+//				
+//				
+//				
 			}
 		};
 	}

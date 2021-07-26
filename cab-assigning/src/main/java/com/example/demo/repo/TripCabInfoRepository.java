@@ -7,11 +7,11 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.example.demo.entity.TripCabInfo;
 
-public interface TripCabInfoRepository extends MongoRepository<TripCabInfo, Integer> {
+public interface TripCabInfoRepository extends MongoRepository<TripCabInfo, Long> {
 	
 	List<TripCabInfo> findByCabNumber(String cabNumber);
 	
-	@Query("{cabNumber:?0},{status:Assigned}")
+	@Query("{cabNumber:?0 ,status:Assigned}")
 	TripCabInfo findIfTripExists(String cabNumber);
 	
 }

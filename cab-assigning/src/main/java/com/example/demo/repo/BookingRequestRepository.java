@@ -8,11 +8,11 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.example.demo.entity.BookingRequest;
 
-public interface BookingRequestRepository extends MongoRepository<BookingRequest, Integer> {
+public interface BookingRequestRepository extends MongoRepository<BookingRequest, Long> {
 
-	BookingRequest findByBookingId(Integer integer);
+	BookingRequest findByBookingId(Long bookingID);
 
-	@Query("{employeeId: ?0}, {status: booked}")
+	@Query("{employeeId: ?0, status: Booked}")
 	BookingRequest findByEmployeeId(String string);
 	
 	@Query("{employeeId: ?0}")
@@ -22,7 +22,7 @@ public interface BookingRequestRepository extends MongoRepository<BookingRequest
 
 
 	@Query(value= "{bookingId:?0}",delete=true)
-	Long deleteByBookingId(Integer bookingID);
+	Long deleteByBookingId(Long bookingID);
 
 
 

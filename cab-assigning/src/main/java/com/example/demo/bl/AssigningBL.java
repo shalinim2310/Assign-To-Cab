@@ -49,7 +49,7 @@ public class AssigningBL {
 	}
 
 
-	public Long deleteRequest(Integer bookingID) {
+	public Long deleteRequest(Long bookingID) {
 		// TODO Auto-generated method stub
 		return this.assigningDL.deleteRequest(bookingID);
 	}
@@ -103,7 +103,7 @@ public class AssigningBL {
      // Find all Cab Model as List
 		public Set<String> findAllCabModel(int i) {
 		
-		return this.assigningDL.findAllCabModel(0);
+		return this.assigningDL.findAllCabModel(i);
 	}
 	 
 	

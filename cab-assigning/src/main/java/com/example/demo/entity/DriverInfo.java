@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -16,20 +17,21 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
-@Document(collection="driverInfo")
+@Document(collection="DriverInfo")
 public class DriverInfo {
 
 	@Id
-	Long driverId;
+	long driverId;
+	
 	String driverName;
 	String password;
-	Long driverNumber;
+	long driverNumber;
 	String licenseNumber;
-    LocalDate expiryDate; 
+    LocalDate licenseExpiryDate; 
     String createdBy;
-	LocalDate createdDate;
+	LocalDateTime createdDate;
 	String modifiedBy;
-	LocalDate modifiedDate;
-	Integer isDeleted;
+	LocalDateTime modifiedDate;
+	int isDeleted;
 	
 }

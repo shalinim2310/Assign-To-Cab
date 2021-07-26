@@ -74,7 +74,7 @@ public class AssigningController {
 	{
 		Query query = new Query();
 		query.limit(limit).skip(skip);
-		Criteria sourceCriteria = Criteria.where("status").is("booked");
+		Criteria sourceCriteria = Criteria.where("status").is("Booked");
 		query.addCriteria(sourceCriteria);
 		
 	//	System.out.println("Scroll");
@@ -105,7 +105,7 @@ public class AssigningController {
 	          dynamicQuery.addCriteria(dropPointCriteria);
 	       }
 	       
-	       Criteria criteria = Criteria.where("status").is("booked");
+	       Criteria criteria = Criteria.where("status").is("Booked");
 			dynamicQuery.addCriteria(criteria);
 	       
 			
@@ -144,7 +144,7 @@ public class AssigningController {
 		
 		Query query = new Query();
 //		query.limit(limit).skip(skip);
-		Criteria sourceCriteria = Criteria.where("status").is("booked");
+		Criteria sourceCriteria = Criteria.where("status").is("Booked");
 		Criteria sourceCriteria1 = Criteria.where("timeSlot").is(LocalTime.of(00, 00, 00));
 		query.addCriteria(sourceCriteria);
 		query.addCriteria(sourceCriteria1);
@@ -158,7 +158,7 @@ public class AssigningController {
 	// to delete requests
 	
 	@DeleteMapping("/bookings/{bookingId}")
-	public Long removeRequest(@PathVariable("bookingId")Integer bookingId)
+	public Long removeRequest(@PathVariable("bookingId")Long bookingId)
 	{
 		return this.assigningBL.deleteRequest(bookingId);
 	}
@@ -211,7 +211,7 @@ public class AssigningController {
 			
 			query.limit(limit).skip(skip);
 			
-			 Criteria criteria1 = Criteria.where("status").is("booked");
+			 Criteria criteria1 = Criteria.where("status").is("Booked");
 				query.addCriteria(criteria1);
 				
 				Criteria criteria2 = Criteria.where("employeeName").regex(text, "i");
@@ -351,27 +351,6 @@ public class AssigningController {
 		return this.assigningBL.save(info);
 	}
 	
-  
-
-
-    
-    //rohit temporary -- beg
-//    public HashMap<String, Object> getCabDetails(){
-//    	
-//    	HashMap<String, Object> resultMap = new HashMap<>();
-//    	
-//    	// logic to fetch all list of available cabs
-//    	// resultList
-//    	
-//    	List<String > resultList = new ArrayList<String>();
-//    	
-//    	resultMap.put("Cab_Numbers_List", resultList);
-//    	resultMap.put("Cab_Count", 5);
-//    	
-//    	return resultMap;
-//    	
-//    }
-    //rohit temporary -- end
 
 
 }

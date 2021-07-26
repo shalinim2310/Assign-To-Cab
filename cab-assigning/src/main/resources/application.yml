@@ -2,7 +2,7 @@ spring:
   data:
     mongodb:
       host: localhost
-      database: test
+      database: cabApplicationV1
       port: 27017
   application:
     name: Cab-info-service   
@@ -12,5 +12,5 @@ logging:
     '[org.springframework.data.mongodb]' : debug
     
 server:
-  port: 8080
+  port: 8081
   

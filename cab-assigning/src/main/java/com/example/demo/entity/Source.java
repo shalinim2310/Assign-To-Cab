@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,12 +16,15 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 
 @FieldDefaults(level=AccessLevel.PRIVATE)
-@Document(collection="source")
+@Document(collection = "Source")
 public class Source {
 	
 	@Id
-	int sourceID;
 	String source;
-	
+	String createdBy;
+	LocalDateTime createdDate;
+	String modifiedBy;
+	LocalDateTime modifiedDate;
+	int isDeleted;
 
 }

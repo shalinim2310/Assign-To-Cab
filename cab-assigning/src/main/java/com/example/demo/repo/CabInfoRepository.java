@@ -12,4 +12,6 @@ public interface CabInfoRepository extends MongoRepository<CabInfo, String> {
 
 	List<CabInfo> findByIsDeleted(int i);
 
+	List<CabInfo> findByCabModelAndIsDeleted(String cabModel, int i);
+
 }

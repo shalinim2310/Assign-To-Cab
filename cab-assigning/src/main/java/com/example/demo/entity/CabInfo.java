@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,20 +16,21 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
-@Document(collection="cabInfo")
+@Document(collection="CabInfo")
 public class CabInfo {
 
 	@Id
 	String cabNumber;
 
-	Long driverId;
+	long driverId;
 	String cabModel;
-	Integer totalSeats;
+	int totalSeats;
 	String insuranceNumber;
-	LocalDate expiryDate;
+	LocalDate insuranceExpiryDate;
+	String driverName;
 	String createdBy;
-	LocalDate createdDate;
+	LocalDateTime createdDate;
 	String modifiedBy;
-	LocalDate modifiedDate;
-	Integer isDeleted;
+	LocalDateTime modifiedDate;
+	int isDeleted;
 }

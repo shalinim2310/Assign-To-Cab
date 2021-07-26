@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -15,13 +16,17 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
-@Document(collection="destination")
+@Document(collection = "Destination")
 public class Destination {
 	
 	@Id
-	int destinationid;
 	String destination;
 	List<DropPoint> dropPoints;
 	List<TimeSlot> timeSlots;
+	String createdBy;
+	LocalDateTime createdDate;
+	String modifiedBy;
+	LocalDateTime modifiedDate;
+	int isDeleted;
 
 }

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,26 +63,21 @@ public class CabAssigningApplication {
 //			@Autowired
 //			TripCabInfoRepository tripRepo;
 		
-//			@SuppressWarnings("deprecation")
-////			@Override
+
 			public void run(String... args) throws Exception{
+			
 				
-//			Before LocalDate and Time was changed
-				
-				
-//				Date date1 = new Date (2023, 10, 26, 0, 0); 
-//				DriverInfo driver1= new DriverInfo(102,"Sriram","Sriram#2",898989,"LCNO456",date1);
+//				DriverInfo driver1= new DriverInfo(Long.valueOf(2222L),"Pradeep A","Pradeep#2222",Long.valueOf(9987655434L),"LCN2312",LocalDate.of(2021, 10, 30),"Pradeep A",LocalDate.now(),null,null,0);
 //				this.driverRepo.save(driver1);
-////				
-//				Date date2 = new Date (2022, 12, 21, 0, 0); 
-//				CabInfo cab1= new CabInfo(101,"TN12K1111",driver1,"Tavera",14,"INNO4567",date2);
+//		
+//				
+//				CabInfo cab1= new CabInfo("TN8K0000",driver1.getDriverId(),"Swift",6,"INNO4567",LocalDate.of(2022, 10, 10),"Pradeep A",LocalDate.now(),null,null,0);
 //				this.cabRepo.save(cab1);
-//				
-//				EmployeeInfo emp1= new EmployeeInfo(201,"Ram","ram@abc.com",99887766,true,false,"UXD","Shyam","Hotel Service Application","Shyam");
+////				
+//				EmployeeInfo emp1= new EmployeeInfo("704","Lisha","lisha@abc.com",Long.valueOf(996421234L),true,false,"UXD","Shyam","Hotel Service Application","Shyam","Ram",LocalDateTime.now(),null,null,false);
 //				this.empRepo.save(emp1);
-//				
-//				BookingRequest req1= new BookingRequest(301,emp1.getEmployeeId(),emp1.getEmployeeName(),"Alpha City","Tambaram","Medavakkam",LocalTime.of(19, 30),LocalTime.of(20, 0), false,
-//						             null,null,null,null,null,"booked","Ram",LocalDate.of(2021,07, 07),null,null,0);
+//
+//				BookingRequest req1= new BookingRequest(1113,emp1.getEmployeeId(),emp1.getEmployeeName(),"Alpha City","Tambaram","Medavakkam",LocalTime.now(),LocalTime.of(22, 30),0,null,null,null,null,null,"booked","Ram",LocalDate.of(2021, 07,20),null,null,0);
 //				
 //				this.reqRepo.save(req1);
 				

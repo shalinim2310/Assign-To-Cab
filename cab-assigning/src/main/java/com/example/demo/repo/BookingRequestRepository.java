@@ -2,6 +2,7 @@ package com.example.demo.repo;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -23,6 +24,10 @@ public interface BookingRequestRepository extends MongoRepository<BookingRequest
 
 	@Query(value= "{bookingId:?0}",delete=true)
 	Long deleteByBookingId(Long bookingID);
+	
+	 //add booking id instead of booking time
+//    @Query("{employeeId : ?0, bookingTime : ?1, status : Booked}")
+//    BookingRequest findByBookin(String empId, LocalTime bookingTime);
 
 
 

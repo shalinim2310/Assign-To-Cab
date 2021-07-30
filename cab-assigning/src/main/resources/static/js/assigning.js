@@ -49,14 +49,8 @@ function getDate(){
 
 		const date=new Date();
 		const n=date.getDate(); const n1=date.getMonth()+1; const n2=date.getFullYear();
-	//	document.getElementById("todayDate").innerHTML="Date of Travel: "+n+"/"+n1+"/"+n2;
-        if(n1<10)
-        {
-            document.getElementById("todayDate").innerHTML="Date of Travel: "+n+"/0"+n1+"/"+n2;
-        }
-        else{
-        document.getElementById("todayDate").innerHTML="Date of Travel: "+n+"/"+n1+"/"+n2;
-        }
+		document.getElementById("todayDate").innerHTML="Date of Travel: "+n+"/"+n1+"/"+n2;
+
 }
 
 
@@ -106,7 +100,8 @@ function loadMethods()     // To load Today Bookings, source and Destination on 
 	getTodaysBookings();
 	getSource();
 	getDestination();
-	//scrollDown();
+	//scrollDown(); temp comment, function to be removed later
+	
 	
 }
 
@@ -239,20 +234,62 @@ function todayBookingResponse(){
             tdata6.className="spacing"; 
             tdata6.id="bookTime";  
   
-             var slot1 = responseRequest[i].timeSlot;
-			 tdata6.innerHTML= timeFormatTo12Hr(slot1,0);
-                    
             createdDate=responseRequest[i].createdDate;
          //   alert(createdDate);
 
-            var tdata7=document.createElement('td');
-            tdata7.className="spacing";
-            tdata7.id="timeSlot";
+            var slot = responseRequest[i].bookingTime;
+			var tempSlot = slot.split(".")[0];
+            var slotSplitted = tempSlot.split(":");
+            slotHour = slotSplitted[0];
+           
+			if (slotHour < 12) {
+				if (slotHour == 00) {
+					tdata6.innerHTML = "12" + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
+				}
+				else {
+					tdata6.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
+				}
+			}
+			else {
+				slotHour = slotHour - 12;
+				if (slotHour < 10) {
+					tdata6.innerHTML = "0" + slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
+				}
+				else {
+					tdata6.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
+				}
+			}
 
-            var slot2 = responseRequest[i].timeSlot;
-			 tdata7.innerHTML= timeFormatTo12Hr(slot2,0);
-                    
-                
+			var tdata7 = document.createElement('td');
+			tdata7.className = "spacing";
+			tdata7.id = "timeSlot";
+
+			var slot = responseRequest[i].timeSlot;
+			var slotSplitted = slot.split(":");
+			slotHour = slotSplitted[0];
+
+			if (slotHour < 12) {
+				if (slotHour == 00) {
+					tdata7.innerHTML = "12" + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
+				}
+				else {
+					tdata7.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
+				}
+			}
+			else {
+				slotHour = slotHour - 12;
+				if (slotHour < 10) {
+					tdata7.innerHTML = "0" + slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
+				}
+				else {
+					tdata7.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
+				}
+			}            
+            
+              var tdata8=document.createElement('td');
+            tdata8.style.display = "none";
+            tdata8.id="bookingId";
+            tdata8.innerHTML=responseRequest[i].bookingId; 
             
             trow.appendChild(tdata);
             trow.appendChild(tdata1);
@@ -262,6 +299,7 @@ function todayBookingResponse(){
             trow.appendChild(tdata5);
             trow.appendChild(tdata6);
             trow.appendChild(tdata7);
+             trow.appendChild(tdata8);
             
             document.getElementById("tableBody").appendChild(trow);
             
@@ -276,9 +314,6 @@ function todayBookingResponse(){
 
 
 ///
-
-
-
 
 
 // To load Source details for filters
@@ -394,8 +429,33 @@ document.getElementById("Destination").addEventListener('change',function()
 							//alert(listOfDestinations[i].timeSlots.length);
 							var opt=document.createElement("option");
 							//opt.innerHTML=listOfDestinations[i].timeSlots[j].timeSlot;
-						var slot3 = listOfDestinations[i].timeSlots[j].timeSlot;			 
-			               opt.innerHTML = timeFormatTo12Hr(slot3,0);
+							
+			var slot = listOfDestinations[i].timeSlots[j].timeSlot;
+			var slotSplitted = slot.split(":");
+			slotHour = slotSplitted[0];
+			
+		if(slotHour<12)
+		{
+		if(slotHour==00)
+		{
+		opt.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		else
+		{
+		opt.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		}
+		else
+		{
+		slotHour = slotHour-12;
+		if(slotHour < 10)
+		{
+		opt.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		else{
+		opt.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		}	
 												
 							//alert(listOfDestinations[i].timeSlots[1].timeSlot);
 							document.getElementById("timeslot").appendChild(opt);
@@ -577,17 +637,72 @@ function getFilters()
 			tdata6.className="spacing";  
 			tdata6.id="bookTime";   
 			
-			var slot4 = filteredRequest[i].bookingTime; 
-			tdata6.innerHTML= timeFormatTo12Hr(slot4,0);
-              		
+			var slot = filteredRequest[i].bookingTime; 
+			var tempSlot = slot.split(".")[0];
+			var slotSplitted = tempSlot.split(":");
+			slotHour = slotSplitted[0];
+			
+		if(slotHour<12)
+		{
+		if(slotHour==00)
+		{
+		tdata6.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		else
+		{
+		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		}
+		else
+		{
+		slotHour = slotHour-12;
+		if(slotHour < 10)
+		{
+		tdata6.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		else{
+		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		}
+
+			
 			
 			var tdata7=document.createElement('td');
 			tdata7.className="spacing";
 			   tdata7.id="timeSlot";  
 			
-			var slot5 = filteredRequest[i].timeSlot; 
-			tdata7.innerHTML= timeFormatTo12Hr(slot5,0);
-             
+			var slot = filteredRequest[i].timeSlot; 
+			var slotSplitted = slot.split(":");
+			slotHour = slotSplitted[0];
+			
+			
+		if(slotHour<12)
+		{
+		if(slotHour==00)
+		{
+		tdata7.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		else
+		{
+		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		}
+		else
+		{
+		slotHour = slotHour-12;
+		if(slotHour < 10)
+		{
+		tdata7.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		else{
+		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		}
+      
+        var tdata8=document.createElement('td');
+            tdata8.style.display = "none";
+            tdata8.id="bookingId";
+            tdata8.innerHTML=responseRequest[i].bookingId; 
 			
 			
 			trow.appendChild(tdata);
@@ -598,7 +713,7 @@ function getFilters()
 			trow.appendChild(tdata5);
 			trow.appendChild(tdata6);
 			trow.appendChild(tdata7);
-			
+			trow.appendChild(tdata8);
 			document.getElementById("tableBody").appendChild(trow);
 			
 			
@@ -724,16 +839,71 @@ function processResponseSearch()
 			var tdata6=document.createElement('td');
 			tdata6.className="spacing";   
 			
-			var slot6 = arr[i].bookingTime; 
-			tdata6.innerHTML= timeFormatTo12Hr(slot6,0);
-             			
+			var slot = arr[i].bookingTime;
+			var tempSlot = slot.split(".")[0]; 
+			var slotSplitted = tempSlot.split(":");
+			slotHour = slotSplitted[0];
+			
+		if(slotHour<12)
+		{
+		if(slotHour==00)
+		{
+		tdata6.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		else
+		{
+		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		}
+		else
+		{
+		slotHour = slotHour-12;
+		if(slotHour < 10)
+		{
+		tdata6.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		else{
+		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		}
+
+			
 			
 			var tdata7=document.createElement('td');
 			tdata7.className="spacing";  
 			
-			var slot7 = arr[i].timeSlot; 
-			tdata7.innerHTML= timeFormatTo12Hr(slot7,0);
-            			
+			var slot = arr[i].timeSlot; 
+			var slotSplitted = slot.split(":");
+			slotHour = slotSplitted[0];
+			
+			
+		if(slotHour<12)
+		{
+		if(slotHour==00)
+		{
+		tdata7.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		else
+		{
+		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
+		}
+		}
+		else
+		{
+		slotHour = slotHour-12;
+		if(slotHour < 10)
+		{
+		tdata7.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		else{
+		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
+		}
+		}
+ 
+			  var tdata8=document.createElement('td');
+            tdata8.style.display = "none";
+            tdata8.id="bookingId";
+            tdata8.innerHTML=responseRequest[i].bookingId; 
 			
 			trow.appendChild(tdata);
 			trow.appendChild(tdata1);
@@ -743,9 +913,12 @@ function processResponseSearch()
 			trow.appendChild(tdata5);
 			trow.appendChild(tdata6);
 			trow.appendChild(tdata7);
+			trow.appendChild(tdata8);
 			
 			document.getElementById("tableBody").appendChild(trow);
-					
+			
+			
+			
 			
 		}
 		var countSpan=document.getElementById("counter");
@@ -773,7 +946,7 @@ var timeSlots;
           document.getElementById("cab-number").selectedIndex=0;
           document.getElementById("cab-driver-name").value=null;
           document.getElementById("cab-driver-number").value= null;
-            document.getElementById("total-seats").innerText="Total No. Of Seats :";
+            document.getElementById("total-seats").innerText="Available No. Of Seats :";
               document.getElementById("allocated-seats").innerText="Allocated No. Of Seats :";
                document.getElementById("remaining-seats").innerText="Remaining No. Of Seats :";
             xhrCabModel.onreadystatechange=processResponse;
@@ -819,7 +992,7 @@ var timeSlots;
         event.preventDefault();
          document.getElementById("cab-driver-name").value=null;
           document.getElementById("cab-driver-number").value= null;
-            document.getElementById("total-seats").innerText="Total No. Of Seats :";
+            document.getElementById("total-seats").innerText="Available No. Of Seats :";
               document.getElementById("allocated-seats").innerText="Allocated No. Of Seats :";
                document.getElementById("remaining-seats").innerText="Remaining No. Of Seats :";
        
@@ -894,7 +1067,7 @@ var timeSlots;
           document.getElementById("cab-driver-number").value= cabNumbers1[i].driverNumber;
              
               
-         document.getElementById("total-seats").innerText="Total No. Of Seats : "+cabNumbers1[i].totalSeats;
+         document.getElementById("total-seats").innerText="Available No. Of Seats : "+cabNumbers1[i].totalSeats;
               document.getElementById("allocated-seats").innerText="Allocated No. Of Seats : "+cabNumbers1[i].allocatedSeats;
                document.getElementById("remaining-seats").innerText="Remaining No. Of Seats : "+cabNumbers1[i].remainingSeats;
 
@@ -909,168 +1082,6 @@ var timeSlots;
    
 //--------------------------------------------------------------------------------------------------------------------------------------------------//
 
- // To get all the Request 
- 
- /*
- 
- var xmlGetAllRequests=new XMLHttpRequest();
-var responseRequest;
-
- 
-
-window.onload=getTodaysBookings;
-
- 
-
-document.getElementById("pills-todaysrequest-tab").addEventListener('click',getTodaysBookings());
-
-
-
-function getTodaysBookings(){
-    //alert("1");
-    xmlGetAllRequests.open("GET","http://localhost:8081/bookingRequest/bookingRequest",true);
-    xmlGetAllRequests.onreadystatechange=todayBookingResponse;
-    xmlGetAllRequests.send(null);
-    
-    
-}
-
- var createdDate;
-
-function todayBookingResponse(){
-    
-    
-    //
-    if(xmlGetAllRequests.readyState==4 && xmlGetAllRequests.status==200)
-    
-    {
-       // alert("2");
-        var responseRequest=JSON.parse(xmlGetAllRequests.responseText);
-        
-        for(var i=0;i<responseRequest.length;i++)
-        {
-           // alert(responseRequest[i].employeeName);
-            var trow=document.createElement('tr');
-            trow.className="row-bg-style";
-            trow.id="row-id";
-            
-            var tdata=document.createElement('td');
-            tdata.className="spacing";
-            tdata.innerHTML=
-            
-            "<input class='form-check-input check' type='checkbox' value='' name='plan' id='flex-check'>"+
-                 " <label class='form-check-label' for='flexCheckChecked'></label>";
-                 
-            var tdata1=document.createElement('td');
-            tdata1.className="spacing";
-            tdata1.id="empId";   
-            tdata1.innerHTML=responseRequest[i].employeeId; 
-            
-            var tdata2=document.createElement('td');
-            tdata2.className="spacing";  
-            tdata2.id="empName"; 
-            tdata2.innerHTML=responseRequest[i].employeeName; 
-            
-            var tdata3=document.createElement('td');
-            tdata3.className="spacing"; 
-            tdata3.id="src";  
-            tdata3.innerHTML=responseRequest[i].source; 
-            
-            var tdata4=document.createElement('td');
-            tdata4.className="spacing"; 
-            tdata4.id="dest";  
-            tdata4.innerHTML=responseRequest[i].destination; 
-            
-            var tdata5=document.createElement('td');
-            tdata5.className="spacing"; 
-            tdata5.id="dpPt";  
-            tdata5.innerHTML=responseRequest[i].dropPoint; 
-            
-            var tdata6=document.createElement('td');
-            tdata6.className="spacing"; 
-            tdata6.id="bookTime";  
-  
-            createdDate=responseRequest[i].createdDate;
-         //   alert(createdDate);
-
-            var slot = responseRequest[i].bookingTime;
-            var slotSplitted = slot.split(":");
-            slotHour = slotSplitted[0];
-           
-           
-        if(slotHour<12)
-        {
-        if(slotHour==00)
-        {
-        tdata6.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-        }
-        else
-        {
-        tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-        }
-        }
-        else
-        {
-        slotHour = slotHour-12;
-        if(slotHour < 10)
-        {
-        tdata6.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-        }
-        else{
-        tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-        }
-        }
-            
-            var tdata7=document.createElement('td');
-            tdata7.className="spacing";
-            tdata7.id="timeSlot";
-           
-            var slot = responseRequest[i].timeSlot;
-            var slotSplitted = slot.split(":");
-            slotHour = slotSplitted[0];
-           
-           
-        if(slotHour<12)
-        {
-        if(slotHour==00)
-        {
-        tdata7.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-        }
-        else
-        {
-        tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-        }
-        }
-        else
-        {
-        slotHour = slotHour-12;
-        if(slotHour < 10)
-        {
-        tdata7.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-        }
-        else{
-        tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-        }
-        }            
-            
-            trow.appendChild(tdata);
-            trow.appendChild(tdata1);
-            trow.appendChild(tdata2);
-            trow.appendChild(tdata3);
-            trow.appendChild(tdata4);
-            trow.appendChild(tdata5);
-            trow.appendChild(tdata6);
-            trow.appendChild(tdata7);
-            
-            document.getElementById("tableBody").appendChild(trow);
-            
-        }
-            
-    }
-}
-*/        
-  
- //------------------------------------------------------------------------------------------------------------------//
  
  // To pass the checked value row information
  var selectedSrc;
@@ -1104,28 +1115,40 @@ function todayBookingResponse(){
 					
 				if(checkedValue){
 				
-				
+					
 					var id = table.rows[i].cells.empId.innerText;
 					var name = table.rows[i].cells.empName.innerText;
 					selectedSrc = table.rows[i].cells.src.innerText;
 					selectedDest = table.rows[i].cells.dest.innerText;
 					var dropPt = table.rows[i].cells.dpPt.innerText;
+					var bookingId = table.rows[i].cells.bookingId.innerText;
 				//	var bookTime = table.rows[i].cells.bookTime.innerText;
-					
 					
 					var splittedTimeSlot1;
 					var slot1=table.rows[i].cells.bookTime.innerText;
 					if (slot1 != 0) {
 						 splittedTimeSlot1 = slot1.split(":");
+							
+						//add 0 if mins < 10 -jithendra
+						var slotMins;
+						if(splittedTimeSlot1[1] < 10) {
+							slotMins = "0" + Number(splittedTimeSlot1[1]);
+						} else {
+							slotMins = splittedTimeSlot1[1];
+						}
+						
+						//in below if-else changed Number(splittedTimeSlot1[1]) to slotMins
+						///////////////////////////////////////////
+						
 						if (splittedTimeSlot1[2].includes("PM")) {
 							seconds = splittedTimeSlot1[2].split(" ");
 							//alert(Number(splittedTimeSlot1[1]));
 							if (Number(splittedTimeSlot1[0]) + 12 == 24) {
-								slot1 = "12" + ":" + Number(splittedTimeSlot1[1]) + ":" + seconds[0];
+								slot1 = "12" + ":" + slotMins + ":" + seconds[0];
 							}
 							else {
 								splittedTimeSlotHour = Number(splittedTimeSlot1[0]) + 12;
-								slot1 = splittedTimeSlotHour + ":" + Number(splittedTimeSlot1[1]) + ":" + seconds[0];
+								slot1 = splittedTimeSlotHour + ":" + slotMins + ":" + seconds[0];
 							}
 						}
 						else {
@@ -1133,15 +1156,15 @@ function todayBookingResponse(){
 							seconds = splittedTimeSlot1[2].split(" ");
 							if (Number(splittedTimeSlot1[0] == 12)) {
 								//alert(splittedTimeSlot1[0]);
-								slot1 = "00" + ":" + "0" + Number(splittedTimeSlot1[1]) + ":" + seconds[0];
+								slot1 = "00" + ":" + "0" + slotMins + ":" + seconds[0];
 								//alert(slot1);
 							}
 							if (Number(splittedTimeSlot1[0]) < 10) {
-								slot1 = "0" + Number(splittedTimeSlot1[0]) + ":" + Number(splittedTimeSlot1[1]) + ":" + seconds[0];
+								slot1 = "0" + Number(splittedTimeSlot1[0]) + ":" + slotMins + ":" + seconds[0];
 							}
 							
 							else if (Number(splittedTimeSlot1[0] <= 11)) {
-								slot1 = Number(splittedTimeSlot1[0]) + ":" + Number(splittedTimeSlot1[1]) + ":" + seconds[0];
+								slot1 = Number(splittedTimeSlot1[0]) + ":" + slotMins + ":" + seconds[0];
 							}
 						}
 					}
@@ -1187,7 +1210,6 @@ function todayBookingResponse(){
 							seconds = splittedTimeSlot[2].split(" ");
 							if (Number(splittedTimeSlot[0] == 12)) {
 								//alert(splittedTimeSlot[0]);
-								
 								 if(Number(splittedTimeSlot[1]) < 10){
 									slot =  "00"+ ":" + "0"+Number(splittedTimeSlot[1]) + ":" + seconds[0];
 								
@@ -1199,6 +1221,7 @@ function todayBookingResponse(){
 									slot =  "00" + ":" + Number(splittedTimeSlot[1]) + ":" + seconds[0];
 									
 								}
+								//alert(slot);
 							}
 							if (Number(splittedTimeSlot[0]) < 10) {
 								
@@ -1311,7 +1334,7 @@ function todayBookingResponse(){
 					defDest=selectedDest;
 					defTimeSlot=selectedTimeSlot;
 					var plan = {"employeeId":id,"employeeName":name,"source":selectedSrc,"destination":selectedDest,
-					            "dropPoint":dropPt,"bookingTime":bookTime,"timeSlot":selectedTimeSlot};
+					            "dropPoint":dropPt,"bookingTime":bookTime,"timeSlot":selectedTimeSlot, "bookingId":bookingId};
 					plans.push(plan);
 					
 					selected=selected+1;
@@ -1343,7 +1366,7 @@ function todayBookingResponse(){
      //  To save the trip info
        
        var xhrAssign = new XMLHttpRequest();
-    var sel;
+  
 		var assignBtn = document.getElementById("assign-btn");
 	
 		assignBtn.addEventListener('click',function(){
@@ -1380,7 +1403,7 @@ function todayBookingResponse(){
 					var trip = {"cabNumber":cabNum,"driverNumber":driverNumber,"source":selectedSrc,"destination":selectedDest,
 					           "dateOfTravel":dateOfTravel,"timeSlot":selectedTimeSlot,"totalSeats":ts,"allocatedSeats":selected, "empList":plans};
 				    
-				  sel=selected;
+				  
          		
 			//alert(trip);
 			var url = "http://localhost:8081/bookingRequest/save/tripInfo";
@@ -1406,12 +1429,7 @@ function todayBookingResponse(){
 	           alert("Trip added successfully");
 	          deleteRow();
 	        selected=0;
-	         getTotalCount();
-	         count=count-sel;
-	         var countSpan=document.getElementById("counter");
-			countSpan.innerHTML=$('#tableBody tr').length+" out of "+count;
-	
-	     
+			getTotalCount();
 		    }
 		    if(xhrAssign.readyState == 4 && xhrAssign.status == 303)
 		    {
@@ -1467,79 +1485,3 @@ function todayBookingResponse(){
   }
 
 //----------------------------Assign To Cab Pop up ends here  ------------------------------------//
-
-
-
-//Coverting Localtime/LcalDateTime into 12 hour time format
-
-function timeFormatTo12Hr(time, secNeeded) {
-
-	//LocalDateTime formatter
-	if (time.includes("T")) {
-		
-		time = time.split("T")[1];
-		return includeOrExcludeSeconds(time,secNeeded);
-		
-	}
-	
-	//LocalTime formatter
-	else {
-		
-		return includeOrExcludeSeconds(time,secNeeded);
-		
-	}
-
-}
-
-//For including/excluding seconds
-function includeOrExcludeSeconds(time, secNeeded) {
-
-	var slotSplitted = time.split(":");
-	slotHour = slotSplitted[0];
-	secs = slotSplitted[2].split(".")[0];
-	if (slotHour < 12) {
-		if (slotHour == 00) {
-			if (secNeeded == 0) {
-				return "12" + ":" + slotSplitted[1] + " AM";
-			}
-			else {
-				return "12" + ":" + slotSplitted[1] + ":" + secs + " AM";
-			}
-		}
-		else {
-			if (secNeeded == 0) {
-				return slotHour + ":" + slotSplitted[1] + " AM";
-			}
-			else {
-				return slotHour + ":" + slotSplitted[1] + ":" + secs + " AM";
-			}
-		}
-	}
-	else {
-		slotHour = slotHour - 12;
-		if (slotHour == 0) {
-			if (secNeeded == 0) {
-				return "12" + ":" + slotSplitted[1] + " PM";
-			}
-			else {
-				return "12" + ":" + slotSplitted[1] + ":" + secs + " PM";
-			}
-		}
-		else if (slotHour < 10) {
-			if (secNeeded == 0) {
-				return "0" + slotHour + ":" + slotSplitted[1] + " PM";
-			}
-			else {
-				return "0" + slotHour + ":" + slotSplitted[1] + ":" + secs + " PM";
-			}
-		}
-		else {
-			if (secNeeded == 0) {
-				return slotHour + ":" + slotSplitted[1] + " PM";
-			}
-			else {
-				return slotHour + ":" + slotSplitted[1] + ":" + secs + " PM";
-			}
-		}
-	}
-}

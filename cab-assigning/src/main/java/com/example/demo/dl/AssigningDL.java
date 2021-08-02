@@ -1,11 +1,14 @@
 package com.example.demo.dl;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -18,6 +21,8 @@ import com.example.demo.entity.CabInfo;
 import com.example.demo.entity.Destination;
 import com.example.demo.entity.DriverInfo;
 import com.example.demo.entity.EmployeeInfo;
+import com.example.demo.entity.Notification;
+import com.example.demo.entity.NotificationMaster;
 import com.example.demo.entity.Source;
 import com.example.demo.entity.TripCabInfo;
 import com.example.demo.repo.BookingRequestRepository;
@@ -25,6 +30,8 @@ import com.example.demo.repo.CabInfoRepository;
 import com.example.demo.repo.DestinationRepository;
 import com.example.demo.repo.DriverInfoRepository;
 import com.example.demo.repo.EmployeeInfoRepository;
+import com.example.demo.repo.NotificationMasterRepository;
+import com.example.demo.repo.NotificationRepository;
 import com.example.demo.repo.SourceRepository;
 import com.example.demo.repo.TripCabInfoRepository;
 
@@ -54,6 +61,13 @@ public class AssigningDL {
 
 	@Autowired
 	private DestinationRepository repo2;
+	
+	@Autowired
+	private NotificationRepository notificationRepo;
+	
+	@Autowired
+	private NotificationMasterRepository notificationMasterRepo;
+	
 
 	// -------------------------------------------Today's Request page starts
 	// here------------------------------------//
@@ -277,14 +291,12 @@ public class AssigningDL {
 		TripCabInfo trip = tripRepo.findIfTripExists(info.getCabNumber());
 		DriverInfo driver = driverRepo.findByDriverNumber(info.getDriverNumber());
 		
+		
 		TripCabInfo newTrip;
 		if (trip != null) {
 			
 			String status = trip.getStatus();
-			// System.out.println(trip.getAllocatedSeats());
-			// System.out.println(info.getAllocatedSeats());
-			
-		
+
 			
 		  if (status.equals("Reached")) {
 				newTrip = new TripCabInfo();
@@ -301,13 +313,16 @@ public class AssigningDL {
 				newTrip.setStatus("Assigned");
 				tripRepo.save(newTrip);
 				updateRequest(info.getEmpList(), newTrip.getTripCabId());
-			
+				
+				notificationRepo.insert(new Notification((notificationRepo.count()+1),null,newTrip.getTripCabId(),"","Driver","Assigned",2L,LocalDateTime.now(),0,null,"",LocalDateTime.now(),null,null,0));
+
 		
 			} else {
 				trip.setAllocatedSeats(trip.getAllocatedSeats() + info.getAllocatedSeats());
 				trip.setRemainingSeats(trip.getRemainingSeats() - info.getAllocatedSeats());
 				tripRepo.save(trip);
 				updateRequest(info.getEmpList(), trip.getTripCabId());
+	
 			}
 		} else {
 			newTrip = new TripCabInfo();
@@ -324,10 +339,15 @@ public class AssigningDL {
 			newTrip.setStatus("Assigned");
 			tripRepo.save(newTrip);
 			updateRequest(info.getEmpList(), newTrip.getTripCabId());
-			// System.out.println("New trip info : ");
+			
+	     	notificationRepo.insert(new Notification((notificationRepo.count()+1),null,newTrip.getTripCabId(),"","Driver","Assigned",2L,LocalDateTime.now(),0,null,"",LocalDateTime.now(),null,null,0));
+
+			
 		}
+		
 		return info;
 	}
+	
 
 	// To update the Booking Request table
 	public boolean updateRequest(List<BookingRequest> req, Long tripCabId) {
@@ -339,7 +359,9 @@ public class AssigningDL {
 
 			reqRepo.save(bookReq);
 			System.out.println(bookReq);
-		}
+			
+			notificationRepo.insert(new Notification((notificationRepo.count()+1),bookReq.getBookingId(),tripCabId,bookReq.getEmployeeId(),"Employee","Assigned",1L,LocalDateTime.now(),0,null,"",LocalDateTime.now(),null,null,0));
+	}
 
 		return true;
 
@@ -353,9 +375,7 @@ public class AssigningDL {
 
 		for (BookingRequest emp : empList) {
 
-			String empId = emp.getEmployeeId();
 			BookingRequest req = reqRepo.findByBookingId(emp.getBookingId());
-		//	BookingRequest req = reqRepo.findByEmployeeId(empId);
 
 			// If more than one admins are assigning at a time, so checking the status
 			// whether it is Assigned already
@@ -381,7 +401,6 @@ public class AssigningDL {
 	
 
 
-	// ----------------------------------------Assign To Cab pop up ends
-	// here---------------------------------//
+	// ----------------------------------------Assign To Cab pop up ends here---------------------------------//
 
 }

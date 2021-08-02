@@ -237,54 +237,17 @@ function todayBookingResponse(){
             createdDate=responseRequest[i].createdDate;
          //   alert(createdDate);
 
-            var slot = responseRequest[i].bookingTime;
-			var tempSlot = slot.split(".")[0];
-            var slotSplitted = tempSlot.split(":");
-            slotHour = slotSplitted[0];
-           
-			if (slotHour < 12) {
-				if (slotHour == 00) {
-					tdata6.innerHTML = "12" + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
-				}
-				else {
-					tdata6.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
-				}
-			}
-			else {
-				slotHour = slotHour - 12;
-				if (slotHour < 10) {
-					tdata6.innerHTML = "0" + slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
-				}
-				else {
-					tdata6.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
-				}
-			}
+            var slot1 = responseRequest[i].bookingTime;
+            
+            tdata6.innerHTML = timeFormatTo12Hr(slot1,1);
+
 
 			var tdata7 = document.createElement('td');
 			tdata7.className = "spacing";
 			tdata7.id = "timeSlot";
 
-			var slot = responseRequest[i].timeSlot;
-			var slotSplitted = slot.split(":");
-			slotHour = slotSplitted[0];
-
-			if (slotHour < 12) {
-				if (slotHour == 00) {
-					tdata7.innerHTML = "12" + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
-				}
-				else {
-					tdata7.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " AM";
-				}
-			}
-			else {
-				slotHour = slotHour - 12;
-				if (slotHour < 10) {
-					tdata7.innerHTML = "0" + slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
-				}
-				else {
-					tdata7.innerHTML = slotHour + ":" + slotSplitted[1] + ":" + slotSplitted[2] + " PM";
-				}
-			}            
+			var slot2 = responseRequest[i].timeSlot;
+			tdata7.innerHTML = timeFormatTo12Hr(slot2,1);     
             
               var tdata8=document.createElement('td');
             tdata8.style.display = "none";
@@ -430,32 +393,8 @@ document.getElementById("Destination").addEventListener('change',function()
 							var opt=document.createElement("option");
 							//opt.innerHTML=listOfDestinations[i].timeSlots[j].timeSlot;
 							
-			var slot = listOfDestinations[i].timeSlots[j].timeSlot;
-			var slotSplitted = slot.split(":");
-			slotHour = slotSplitted[0];
-			
-		if(slotHour<12)
-		{
-		if(slotHour==00)
-		{
-		opt.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		else
-		{
-		opt.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		}
-		else
-		{
-		slotHour = slotHour-12;
-		if(slotHour < 10)
-		{
-		opt.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		else{
-		opt.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		}	
+			var slot3 = listOfDestinations[i].timeSlots[j].timeSlot;
+			opt.innerHTML = timeFormatTo12Hr(slot3,1);	
 												
 							//alert(listOfDestinations[i].timeSlots[1].timeSlot);
 							document.getElementById("timeslot").appendChild(opt);
@@ -637,33 +576,8 @@ function getFilters()
 			tdata6.className="spacing";  
 			tdata6.id="bookTime";   
 			
-			var slot = filteredRequest[i].bookingTime; 
-			var tempSlot = slot.split(".")[0];
-			var slotSplitted = tempSlot.split(":");
-			slotHour = slotSplitted[0];
-			
-		if(slotHour<12)
-		{
-		if(slotHour==00)
-		{
-		tdata6.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		else
-		{
-		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		}
-		else
-		{
-		slotHour = slotHour-12;
-		if(slotHour < 10)
-		{
-		tdata6.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		else{
-		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		}
+			var slot4 = filteredRequest[i].bookingTime; 
+			tdata6.innerHTML = timeFormatTo12Hr(slot4,1);
 
 			
 			
@@ -671,38 +585,13 @@ function getFilters()
 			tdata7.className="spacing";
 			   tdata7.id="timeSlot";  
 			
-			var slot = filteredRequest[i].timeSlot; 
-			var slotSplitted = slot.split(":");
-			slotHour = slotSplitted[0];
-			
-			
-		if(slotHour<12)
-		{
-		if(slotHour==00)
-		{
-		tdata7.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		else
-		{
-		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		}
-		else
-		{
-		slotHour = slotHour-12;
-		if(slotHour < 10)
-		{
-		tdata7.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		else{
-		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		}
+			var slot5 = filteredRequest[i].timeSlot; 
+			tdata7.innerHTML = timeFormatTo12Hr(slot5,1);
       
         var tdata8=document.createElement('td');
             tdata8.style.display = "none";
             tdata8.id="bookingId";
-            tdata8.innerHTML=responseRequest[i].bookingId; 
+            tdata8.innerHTML=filteredRequest[i].bookingId; 
 			
 			
 			trow.appendChild(tdata);
@@ -813,7 +702,7 @@ function processResponseSearch()
 			tdata.className="spacing";
 			tdata.innerHTML=
 			
-			"<input class='form-check-input check' type='checkbox' value='' id='flex-check'>"+
+			"<input class='form-check-input check' type='checkbox' value='' name='plan' id='flex-check'>"+
                  " <label class='form-check-label' for='flexCheckChecked'></label>";
                  
             var tdata1=document.createElement('td');
@@ -839,71 +728,20 @@ function processResponseSearch()
 			var tdata6=document.createElement('td');
 			tdata6.className="spacing";   
 			
-			var slot = arr[i].bookingTime;
-			var tempSlot = slot.split(".")[0]; 
-			var slotSplitted = tempSlot.split(":");
-			slotHour = slotSplitted[0];
-			
-		if(slotHour<12)
-		{
-		if(slotHour==00)
-		{
-		tdata6.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		else
-		{
-		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		}
-		else
-		{
-		slotHour = slotHour-12;
-		if(slotHour < 10)
-		{
-		tdata6.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		else{
-		tdata6.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		}
-
+			var slot6 = arr[i].bookingTime;
+			tdata6.innerHTML = timeFormatTo12Hr(slot6,1);
 			
 			
 			var tdata7=document.createElement('td');
 			tdata7.className="spacing";  
 			
-			var slot = arr[i].timeSlot; 
-			var slotSplitted = slot.split(":");
-			slotHour = slotSplitted[0];
-			
-			
-		if(slotHour<12)
-		{
-		if(slotHour==00)
-		{
-		tdata7.innerHTML = "12"+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		else
-		{
-		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" AM";
-		}
-		}
-		else
-		{
-		slotHour = slotHour-12;
-		if(slotHour < 10)
-		{
-		tdata7.innerHTML = "0"+slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		else{
-		tdata7.innerHTML = slotHour+":"+slotSplitted[1]+":"+slotSplitted[2]+" PM";
-		}
-		}
- 
+			var slot7 = arr[i].timeSlot; 
+			tdata7.innerHTML = timeFormatTo12Hr(slot7,1);
+			 
 			  var tdata8=document.createElement('td');
             tdata8.style.display = "none";
             tdata8.id="bookingId";
-            tdata8.innerHTML=responseRequest[i].bookingId; 
+            tdata8.innerHTML=arr[i].bookingId; 
 			
 			trow.appendChild(tdata);
 			trow.appendChild(tdata1);
@@ -1463,16 +1301,16 @@ var timeSlots;
                 
 //-------------------------------------------------------------------------------------------------------------------------------------------//           
     
-    // Function to check atleast one employee is selected
-    
-    		function check(){	
-				if(document.getElementById("flex-check").checked==false){
-				 
-				 alert("Check atleast one employee");
-				 return false;
-				}
-         
-          }
+//    // Function to check atleast one employee is selected
+//    
+//    		function check(){	
+//				if(document.getElementById("flex-check").checked==false){
+//				 
+//				 alert("Check atleast one employee");
+//				 return false;
+//				}
+//         
+//          }
           
           
  //----------------------------------------------------------------------------------------

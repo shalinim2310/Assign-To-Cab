@@ -19,6 +19,7 @@ import com.example.demo.entity.Destination;
 import com.example.demo.entity.DriverInfo;
 import com.example.demo.entity.DropPoint;
 import com.example.demo.entity.EmployeeInfo;
+import com.example.demo.entity.NotificationMaster;
 import com.example.demo.entity.Source;
 import com.example.demo.entity.TimeSlot;
 import com.example.demo.entity.TripCabInfo;
@@ -27,6 +28,7 @@ import com.example.demo.repo.CabInfoRepository;
 import com.example.demo.repo.DestinationRepository;
 import com.example.demo.repo.DriverInfoRepository;
 import com.example.demo.repo.EmployeeInfoRepository;
+import com.example.demo.repo.NotificationMasterRepository;
 import com.example.demo.repo.SourceRepository;
 import com.example.demo.repo.TripCabInfoRepository;
 
@@ -63,6 +65,8 @@ public class CabAssigningApplication {
 //			@Autowired
 //			TripCabInfoRepository tripRepo;
 		
+			@Autowired
+			NotificationMasterRepository notificationMaster;
 
 			public void run(String... args) throws Exception{
 			
@@ -144,8 +148,19 @@ public class CabAssigningApplication {
 //				repo2.save(dest2); 
 //				
 //				
+// 
+//				NotificationMaster noti1=new NotificationMaster(1L,"You have been assigned to a Cab","Admin",LocalDateTime.now(),null,null,0);
+//				notificationMaster.save(noti1);
 //				
+//				NotificationMaster noti2=new NotificationMaster(2L,"A trip has been assigned","Admin",LocalDateTime.now(),null,null,0);
+//				notificationMaster.save(noti2);
 //				
+//				NotificationMaster noti3=new NotificationMaster(3L,"Trip has been completed","Admin",LocalDateTime.now(),null,null,0);
+//				notificationMaster.save(noti3);
+//				
+//				NotificationMaster noti4=new NotificationMaster(4L,"Complaints has been raised","Admin",LocalDateTime.now(),null,null,0);
+//				notificationMaster.save(noti4);
+				
 			}
 		};
 	}
